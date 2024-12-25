@@ -1,0 +1,9 @@
+docker-compose build
+
+docker-compose up
+
+http://localhost:6666
+
+from web container:
+docker exec -it django_app bash
+psql -h db -U django_user -d django_db

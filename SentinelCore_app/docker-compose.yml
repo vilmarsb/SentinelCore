@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    container_name: django_app
+    ports:
+      - "6666:6666"
+    networks:
+      - default
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_NAME=django_db
+      - DATABASE_USER=django_user
+      - DATABASE_PASSWORD=django_password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: django_db
+      POSTGRES_USER: django_user
+      POSTGRES_PASSWORD: django_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
